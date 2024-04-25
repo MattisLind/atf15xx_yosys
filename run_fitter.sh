@@ -90,7 +90,7 @@ echo Options = ${OPTS}
 
 FITTER=fit${DEVICE//[!0-9]/}.exe
 
-grep '--PIN:' ${NAME}.vhdl | cut -c7- > ${NAME}.pin
+grep "\-\-PIN:" ATF1508.vhdl | cut -c7- > ${NAME}.pin
 
 rm -f ${NAME}.fit
 
