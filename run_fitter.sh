@@ -90,7 +90,7 @@ echo Options = ${OPTS}
 
 FITTER=fit${DEVICE//[!0-9]/}.exe
 cat ${NAME}.vhdl
-grep "\-\-PIN:" ${NAME}.vhdl | cut -c7- > ${NAME}.pin
+grep "\-\-PIN:" ${NAME}.vhdl | cut -d' ' -f2- > ${NAME}.pin
 cat ${NAME}.pin
 cp ${NAME}.pin ${NAME}.pin.before
 rm -f ${NAME}.fit
