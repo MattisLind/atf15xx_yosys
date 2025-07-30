@@ -89,9 +89,10 @@ echo Options = ${OPTS}
 # Logic Doubling = off
 
 FITTER=fit${DEVICE//[!0-9]/}.exe
-
-grep "\-\-PIN:" src/ATF1508.vhdl | cut -c7- > ${NAME}.pin
-
+cat src/${NAME}.vhdl
+grep "\-\-PIN:" src/${NAME}.vhdl | cut -c7- > src/${NAME}.pin
+cat src/${NAME}.pin
+cp src/${NAME}.pin src/${NAME}.pin.before
 rm -f ${NAME}.fit
 
 wine ${FITTERDIR}\\${FITTER} \
