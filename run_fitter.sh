@@ -119,7 +119,7 @@ echo
 grep "^\$Device"  ${NAME}.fit
 echo
 
-grep -v -e CHIP  ${NAME}.pin.before | cut -w  -f1-3 | sort > ${NAME}.pin.before.sorted
-grep -v -e '[6-7][0-9][0-9]' -e CHIP ${NAME}.pin | cut -w  -f1-3 | sort  > ${NAME}.pin.sorted
+grep -v -e CHIP  ${NAME}.pin.before | perl -F'\s+' -lane 'print join("\t", @F[0..2])' | sort > ${NAME}.pin.before.sorted
+grep -v -e '[6-7][0-9][0-9]' -e CHIP ${NAME}.pin | perl -F'\s+' -lane 'print join("\t", @F[0..2])' | sort  > ${NAME}.pin.sorted
 cat ${NAME}.pin.sorted
 diff ${NAME}.pin.sorted ${NAME}.pin.before.sorted
