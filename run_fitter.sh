@@ -90,7 +90,7 @@ echo Options = ${OPTS}
 
 FITTER=fit${DEVICE//[!0-9]/}.exe
 cat ${NAME}.vhdl
-grep "\-\-PIN:" ${NAME}.vhdl | cut -d' ' -f2- > ${NAME}.pin
+grep "\-\-PIN:" ${NAME}.vhdl | cut -d' ' -f2- | perl -pe 's/(?<!\r)\n/\r\n/g;' > ${NAME}.pin
 cat ${NAME}.pin
 cp ${NAME}.pin ${NAME}.pin.before
 rm -f ${NAME}.fit
@@ -118,3 +118,8 @@ echo
 
 grep "^\$Device"  ${NAME}.fit
 echo
+
+grep -v -e CHIP  ${NAME}.pin.before | cut -w  -f1-3 | sort > ${NAME}.pin.before.sorted
+grep -v -e '[6-7][0-9][0-9]' -e CHIP ${NAME}.pin | cut -w  -f1-3 | sort  > ${NAME}.pin.sorted
+cat ${NAME}.pin.sorted
+diff ${NAME}.pin.sorted ${NAME}.pin.before.sorted
